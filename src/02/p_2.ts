@@ -1,0 +1,2 @@
+import { readFileSync } from "fs"; import { resolve } from 'path';
+console.log((readFileSync(resolve(__dirname,'input.txt'))).toString().split("\r\n").map(s => s.split(" ").map(c=>{return{'A':0,'B':1,'C':2,'X':0,'Y':1,'Z':2}[c]!})).map(t=>[[3,1,2],[4,5,6],[8,9,7]][t[1]][t[0]]).reduce((a,c)=>a+c,0));
