@@ -1,0 +1,1 @@
+console.log(require('fs').readFileSync(require('path').resolve(__dirname,'input.txt')).toString().split("\r\n").map((p:string)=>p.split(",").map(s=>s.split("-").map(s=>Number(s)))).filter((a:number[][])=>((a[0][0]>=a[1][0]&&a[0][1]<=a[1][1])||(a[1][0]>=a[0][0]&&a[1][1]<=a[0][1]))).length)
