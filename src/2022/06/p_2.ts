@@ -1,0 +1,1 @@
+console.log(require('fs').readFileSync(require('path').resolve(__dirname,'input.txt')).toString().split("").map((v:string,i:number)=>[i,v]).find((v:[number,string],i:number,a:[number,string][])=>i > 13 && [...new Set(...[a.map(v=>v[1]).slice(i-14, i)])].length == a.map(v=>v[1]).slice(i-14, i).length)[0]);
