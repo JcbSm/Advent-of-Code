@@ -28,6 +28,13 @@ const root = new Dir('/', null);
 let current = root;
 input.forEach((line: string[][], i, a) => {
 
+    // line[0] is the first line of the command
+    // line[0][0] is the command that was run
+    // line[1..] is the responses
+    // For each line in output from 'ls':
+    // ['dir', 'doiajd'] or ['123456', 'file.name']
+    // Can easily determine what is inside the dir using this format.
+
     const cmd = line[0][0];
 
     // Skip first command, already in root dir
