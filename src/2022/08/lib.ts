@@ -141,7 +141,6 @@ export class Grid {
     public getMostScenic(): number {
 
         let score = 0;
-        
         this.plane.forEach(row => {
             row.forEach(tree => {
                 let s = tree.calcScenicScore();
