@@ -36,6 +36,7 @@ function sim(length: number) {
                 let diffX = knot.pos.x - prev.pos.x;
                 let diffY = knot.pos.y - prev.pos.y;
 
+                // Move(): 0-UP 1-DOWN 2-RIGHT 3-LEFT
                 if (Math.abs(diffX) > 0) {
                     knot.move(diffX > 0 ? 3 : 2);
                 }
