@@ -1,5 +1,6 @@
 import { Knot } from "./lib/Knot";
 
+// Parse input to be [direction, distance]
 const steps: number[][] = require('fs').readFileSync(require('path').resolve(__dirname, 'input.txt'))
     .toString()
     .split("\r\n")
@@ -10,20 +11,24 @@ const steps: number[][] = require('fs').readFileSync(require('path').resolve(__d
 
 
 function sim(length: number) {
-    const rope = new Array(length).fill(0).map(n => new Knot())
 
-    steps.forEach(split => {
+    // Generate Rope
+    const rope = new Array(length).fill(null).map(n => new Knot())
 
-        const [direction, distance] = split;
+    steps.forEach(step => {
+
+        const [direction, distance] = step;
 
         for (let j = 0; j < distance; j++) {
             rope.forEach((knot: Knot, i) => {
 
+                // Move head
                 if (i == 0)
                     return knot.move(direction);
 
                 let prev = rope[i-1];
 
+                // Do nothign if still adjacent
                 if (knot.isAdjacent(prev))
                     return;
 
