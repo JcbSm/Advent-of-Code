@@ -3,15 +3,6 @@ import { evaluate } from "mathjs";
 const gcd = (a: number, b: number): number => a ? gcd(b % a, a) : b;
 const lcm = (a: number, b: number): number => a * b / gcd(a, b);
 
-// Parse input
-const monkeyInput: string[][] = require('fs').readFileSync(require('path').resolve(__dirname, 'input.txt'))
-    .toString()
-    .split("\r\n\r\n")
-    .map((m: string) =>
-        m //
-            .split("\r\n")
-            .map(s=> s.trim()));
-
 class Monkey {
     constructor(input: string[]) {
         this.id = Number(input[0].replace(/Monkey |:/g, ''));
@@ -22,18 +13,18 @@ class Monkey {
         this.ifFalse = Number(input[5].replace(/If false: throw to monkey /, ''));
         this.count = 0;
     }
-
+    
     public turn(monkeys: Map<number, Monkey>) {
-
+        
         const LCM = [...monkeys.values()].map(m => m.divider).reduce(lcm);
-
+        
         while (this.items[0]) {
-
+            
             this.inspect(LCM);
             this.test(monkeys);
         }
     }
-
+    
     private inspect(LCM: number) {
         let level = this.items[0]!
         this.items[0] = evaluate(this.operation.replace(/old/g, `${level}`)) % LCM
@@ -43,25 +34,26 @@ class Monkey {
     private test(monkeys: Map<number, Monkey>) {
         this.items[0] % this.divider == 0 ? this.throw(monkeys.get(this.ifTrue)!) : this.throw(monkeys.get(this.ifFalse)!);
     }    
-
+    
     private throw(monkey: Monkey) {
         const item = this.items.shift();
         item ? monkey.items.push(item) : null;
     }
 }
 
-interface Monkey {
-    id: number,
-    items: number[];
-    operation: string;
-    divider: number;
-    ifTrue: number;
-    ifFalse: number;
-    count: number;
-}
+interface Monkey { id: number, items: number[]; operation: string; divider: number; ifTrue: number; ifFalse: number; count: number }
 
+// Parse input
+const monkeyInput: string[][] = require('fs').readFileSync(require('path').resolve(__dirname, 'input.txt'))
+    .toString()
+    .split("\r\n\r\n")
+    .map((m: string) =>
+        m //
+            .split("\r\n")
+            .map(s=> s.trim()));
+
+// Monkey Map
 const monkeys: Map<number, Monkey> = new Map()
-
 monkeyInput.forEach(mon => {
     const monkey = new Monkey(mon);
     monkeys.set(monkey.id, monkey);

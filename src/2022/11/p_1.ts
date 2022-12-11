@@ -1,6 +1,7 @@
 import { evaluate } from "mathjs";
 
 class Monkey {
+
     constructor(input: string[]) {
         this.id = Number(input[0].replace(/Monkey |:/g, ''));
         this.items = input[1].replace(/Starting items: /, '').split(', ').map(s=> Number(s));
@@ -36,15 +37,7 @@ class Monkey {
     }
 }
 
-interface Monkey {
-    id: number,
-    items: number[];
-    operation: string;
-    divider: number;
-    ifTrue: number;
-    ifFalse: number;
-    count: number;
-}
+interface Monkey { id: number; items: number[]; operation: string; divider: number; ifTrue: number; ifFalse: number; count: number; }
 
 // Parse input
 const monkeyInput: string[][] = require('fs').readFileSync(require('path').resolve(__dirname, 'input.txt'))
@@ -55,8 +48,8 @@ const monkeyInput: string[][] = require('fs').readFileSync(require('path').resol
             .split("\r\n")
             .map(s=> s.trim()));
 
+// Create monkey map
 const monkeys: Map<number, Monkey> = new Map()
-
 monkeyInput.forEach(mon => {
     const monkey = new Monkey(mon);
     monkeys.set(monkey.id, monkey);
